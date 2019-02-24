@@ -1,4 +1,6 @@
 cd  /tmp/src/
+sed 's|REPLACE_ME|'$API_URL'|g' .env.production > .env.production
+cat .env.production
 npm i
 npm install -g serve
 npm run-script build
