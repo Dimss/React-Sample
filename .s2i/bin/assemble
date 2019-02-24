@@ -1,13 +1,6 @@
 cd  /tmp/src/
-cat .env.production
-echo "======================="
-echo $API_URL
-echo "======================="
-#sed 's|REPLACE_ME|'$API_URL'|g' .env.production
-#echo "======================="
-#cat .env.production
-#echo "======================="
-#npm i
-#npm install -g serve
-#npm run-script build
-#mv /tmp/src/build /opt/app-root/src/
+sed -i 's|REPLACE_ME|'$API_URL'|g' .env.production
+npm i
+npm install -g serve
+npm run-script build
+mv /tmp/src/build /opt/app-root/src/
