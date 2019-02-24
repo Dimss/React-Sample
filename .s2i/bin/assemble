@@ -1,4 +1,5 @@
 cd  /tmp/src/
 npm i
+npm install -g serve
 npm run-script build
 mv /tmp/src/build /opt/app-root/src/
