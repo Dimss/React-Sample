@@ -1,4 +1,6 @@
-mv /tmp/src/ ./src
-ls -all
-npm -i
+cd  /tmp/src/
+npm i
+npm install -g serve
 npm run-script build
+mv /tmp/src/build /opt/app-root/src/
+ls /opt/app-root/src/build
