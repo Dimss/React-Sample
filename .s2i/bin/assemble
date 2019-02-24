@@ -3,10 +3,10 @@ cat .env.production
 echo "======================="
 echo $API_URL
 echo "======================="
-sed 's|REPLACE_ME|'$API_URL'|g' .env.production > .env.production
-echo "======================="
-cat .env.production
-echo "======================="
+#sed 's|REPLACE_ME|'$API_URL'|g' .env.production
+#echo "======================="
+#cat .env.production
+#echo "======================="
 #npm i
 #npm install -g serve
 #npm run-script build
