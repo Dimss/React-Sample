@@ -1,4 +1,4 @@
-mv /tmp/src/ ./
+mv /tmp/src/ ./src
 ls -all
 npm -i
 npm run-script build
