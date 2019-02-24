@@ -1,0 +1,22 @@
+kind: "BuildConfig"
+apiVersion: "v1"
+metadata:
+  name: "react-sample"
+spec:
+  source:
+    git:
+      uri: "http://10.166.0.11/root/react-sample.git"
+      ref: "master"
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile:
+      env:
+      - name: "GOVIL_APP_NAME"
+        value: "react-sample"
+      - name: "S2I_BUILD_IMAGE"
+        value: "nodejs:10"
+      - name: "DOCKER_IMAGE_PREFIX"
+        value: "dimssss"
+      - name: "DOCKER_REGISTRY"
+        value: "docker.io"
+    type: JenkinsPipeline

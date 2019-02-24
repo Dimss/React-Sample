@@ -30,6 +30,10 @@ def getGitTag() {
     }
 }
 
+def getApiUrl() {
+    return "http://coreapitest-dev-latest.router.default.svc.cluster.local/api/Person"
+}
+
 def getDockerImageTag() {
     if (env.gitlabActionType == "TAG_PUSH") {
         return getGitTag()
@@ -71,7 +75,8 @@ pipeline {
                                     "-p=DOCKER_IMAGE_TAG=${getDockerImageTag()}",
                                     "-p=GIT_REPO=${scm.getUserRemoteConfigs()[0].getUrl()}",
                                     "-p=GIT_REF=${env.gitlabSourceBranch}",
-                                    "-p=S2I_BUILDER_ISTAG=${env.S2I_BUILD_IMAGE}"
+                                    "-p=S2I_BUILDER_ISTAG=${env.S2I_BUILD_IMAGE}",
+                                    "-p=API_URL=${getApiUrl()}"
                             )
                             echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
                             openshift.create(models)
@@ -86,19 +91,4 @@ pipeline {
         }
     }
 
-
-    post {
-        failure {
-            script {
-                openshift.withCluster() {
-                    openshift.withProject() {
-                        def testDepTemplate = readFile('ocp/ci/unittests-resources-template.yaml')
-                        def models = openshift.process(testDepTemplate, "-p=RABBITMQ_NAME=${env.rabbitmqName}")
-                        openshift.delete(models)
-
-                    }
-                }
-            }
-        }
-    }
 }
