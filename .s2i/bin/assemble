@@ -1,4 +1,5 @@
 cd  /tmp/src/
+cat .env.production
 sed 's|REPLACE_ME|'$API_URL'|g' .env.production > .env.production
 cat .env.production
 #npm i
