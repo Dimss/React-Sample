@@ -35,7 +35,7 @@ parameters:
   name: SIZE
   value: "1"
   required: true
-- description: Name of the CoreApiTest instace
+- description: Name of the ReactSample instace
   displayName: This name will be used by all objects created by CR (pods,services,deployments, etc..)
   name: ROUTE_NAME
   required: true
@@ -44,16 +44,16 @@ parameters:
   name: NAMESPACE
   required: true
   value: govil
-- description: CoreApiTest image
-  displayName: CoreApiTest Docker image
+- description: ReactSample image
+  displayName: ReactSample Docker image
   name: IMAGE
   required: true
 - description: Container port
   displayName: Port number that should be exposed from container
   name: PORT
   required: true
-- description: CoreApiTest Profile
-  displayName: CoreApiTest profile  #dev/lab/prod
+- description: ReactSample Profile
+  displayName: ReactSample profile  #dev/lab/prod
   name: PROFILE
   value: dev
   required: true
