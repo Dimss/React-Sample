@@ -42,6 +42,14 @@ def getDockerImageTag() {
     }
 }
 
+def getProfile(){
+    if (env.gitlabActionType == "TAG_PUSH") {
+        return "lab"
+    } else {
+        return "dev"
+    }
+}
+
 pipeline {
     agent any
     stages {
@@ -89,6 +97,23 @@ pipeline {
                 }
             }
         }
-    }
 
+        stage("Deploy to OpenShift") {
+          steps{
+            script{
+              openshift.withCluster() {
+                openshift.withProject() {
+                  def size = 1
+                  def serviceName = getAppName()
+                  def namespace = openshift.project()
+                  def port = 8080
+                  def image "${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}:${getDockerImageTag()}"
+                  def profile = getProfile()
+
+                }
+              }
+            }
+          }
+        }
+    }
 }

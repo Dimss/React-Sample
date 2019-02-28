@@ -1,0 +1,59 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+labels:
+  template: ReactSample
+message: |-
+  ReactSample Custom Resource Template
+metadata:
+  name: reactsample-cr
+  annotations:
+    description: |-
+      ReactSample Custom Resource Template
+    iconClass: fa fa-mixcloud
+    openshift.io/display-name: ReactSample
+    openshift.io/provider-display-name: GovIL-ReactSample by RH PS
+    tags: cr
+objects:
+- apiVersion: gov.il/v1alpha1
+  kind: ReactSample
+  metadata:
+    name: govil-reactsample-f8e9eda
+  spec:
+    size: 1
+    appName: govil-reactsample-f8e9eda
+    routeName: reactsample-dev
+    image: "docker.io/dimssss/react-sample:f8e9eda-1"
+    containerPort: 8080
+    profile: dev
+    namespace: govil
+    deploymentStrategy:
+      type: gb
+      weight: 50
+parameters:
+- description: Count of instaces
+  displayName: How many instaces should be deployed
+  name: SIZE
+  value: "1"
+  required: true
+- description: Name of the CoreApiTest instace
+  displayName: This name will be used by all objects created by CR (pods,services,deployments, etc..)
+  name: ROUTE_NAME
+  required: true
+- description: Route name
+  displayName: Name of the OpenShift route object
+  name: NAMESPACE
+  required: true
+  value: govil
+- description: CoreApiTest image
+  displayName: CoreApiTest Docker image
+  name: IMAGE
+  required: true
+- description: Container port
+  displayName: Port number that should be exposed from container
+  name: PORT
+  required: true
+- description: CoreApiTest Profile
+  displayName: CoreApiTest profile  #dev/lab/prod
+  name: PROFILE
+  value: dev
+  required: true
