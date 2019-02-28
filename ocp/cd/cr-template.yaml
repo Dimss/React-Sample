@@ -19,13 +19,13 @@ objects:
   metadata:
     name: ${APP_NAME}
   spec:
-    size: 1
-    appName: govil-reactsample-f8e9eda
-    routeName: reactsample-dev
-    image: "docker.io/dimssss/react-sample:f8e9eda-1"
-    containerPort: 8080
-    profile: dev
-    namespace: govil
+    size: ${SIZE}
+    appName: ${APP_NAME}
+    routeName: ${ROUTE_NAME}
+    image: ${IMAGE}
+    containerPort: ${PORT}
+    profile: ${PROFILE}
+    namespace: ${NAMESPACE}
     deploymentStrategy:
       type: gb
       weight: 50
