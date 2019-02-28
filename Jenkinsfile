@@ -104,7 +104,7 @@ pipeline {
               openshift.withCluster() {
                 openshift.withProject() {
                   def size = 1
-                  def serviceName = getAppName()
+                  def appName = getAppName()
                   def namespace = openshift.project()
                   def port = 8080
                   def image = "${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}:${getDockerImageTag()}"
@@ -112,7 +112,7 @@ pipeline {
                   def crTemplate = readFile('ocp/cd/cr-template.yaml')
                   def models = openshift.process(crTemplate,
                         "-p=SIZE=${size}",
-                        "-p=SERVICE_NAME=${serviceName}",
+                        "-p=APP_NAME=${appName}",
                         "-p=NAMESPACE=${namespace}",
                         "-p=IMAGE=${image}",
                         "-p=PORT=${port}",

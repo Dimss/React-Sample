@@ -17,7 +17,7 @@ objects:
 - apiVersion: gov.il/v1alpha1
   kind: ReactSample
   metadata:
-    name: govil-reactsample-f8e9eda
+    name: ${APP_NAME}
   spec:
     size: 1
     appName: govil-reactsample-f8e9eda
@@ -30,6 +30,10 @@ objects:
       type: gb
       weight: 50
 parameters:
+- description: Name of the ReactSample instace
+  displayName: This name will be used by all objects created by CR (pods,services,deployments, etc..)
+  name: APP_NAME
+  required: true
 - description: Count of instaces
   displayName: How many instaces should be deployed
   name: SIZE
