@@ -109,7 +109,16 @@ pipeline {
                   def port = 8080
                   def image "${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}:${getDockerImageTag()}"
                   def profile = getProfile()
-
+                  def crTemplate = readFile('ocp/cd/cr-template.yaml')
+                  def models = openshift.process(crTemplate,
+                        "-p=SIZE=${size}",
+                        "-p=SERVICE_NAME=${serviceName}",
+                        "-p=NAMESPACE=${namespace}",
+                        "-p=IMAGE=${image}",
+                        "-p=PORT=${port}",
+                        "-p=PROFILE=${profile}")
+                  echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
+                  openshift.create(models)
                 }
               }
             }
