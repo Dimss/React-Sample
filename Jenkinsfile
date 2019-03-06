@@ -12,9 +12,9 @@ def getJobName() {
 
 def getAppName() {
     if (env.gitlabActionType == "TAG_PUSH") {
-        return "${getJobName()}-${getGitTag()}".replaceAll("\.","-")
+        return "${getJobName()}-${getGitTag()}".replaceAll("\\.","-")
     } else {
-        return "${getJobName()}-${getGitCommitShortHash()}".replaceAll("\.","-")
+        return "${getJobName()}-${getGitCommitShortHash()}".replaceAll("\\.","-")
     }
 }
 
