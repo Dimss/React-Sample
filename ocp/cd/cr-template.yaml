@@ -18,6 +18,8 @@ objects:
   kind: ReactSample
   metadata:
     name: ${APP_NAME}
+    labels:
+      profile: ${PROFILE}
   spec:
     size: ${SIZE}
     appName: ${APP_NAME}
