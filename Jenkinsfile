@@ -108,6 +108,7 @@ pipeline {
             script{
               openshift.withCluster() {
                 openshift.withProject() {
+                  echo "${getAppName()}"
                   def size = 1
                   def appName = getAppName()
                   def namespace = openshift.project()
