@@ -34,9 +34,16 @@ def getGitTag() {
 def getApiUrl() {
     def profile = getProfile()
     if(profile == "dev")
-      return "http://coreapitest-dev-latest.router.default.svc.cluster.local/api/Person"
+      return "http://${getRoutePrefix()}.router.default.svc.cluster.local/api/Person"
     if(profile == "lab")
-      return "http://coreapitest-lab-latest.router.default.svc.cluster.local/api/Person"
+      return "http://${getRoutePrefix()}.router.default.svc.cluster.local/api/Person"
+}
+
+def getRoutePrefix(){
+  if(profile == "dev")
+    return "coreapitest-dev-latest"
+  if(profile == "lab")
+    return "coreapitest-lab-latest"
 }
 
 def getDockerImageTag() {
@@ -122,7 +129,7 @@ pipeline {
                         "-p=NAMESPACE=${namespace}",
                         "-p=IMAGE=${image}",
                         "-p=PORT=${port}",
-                        "-p=ROUTE_NAME=${routeName}",
+                        "-p=ROUTE_PREFIX=${getRoutePrefix()}",
                         "-p=PROFILE=${profile}")
                   echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
                   openshift.create(models)

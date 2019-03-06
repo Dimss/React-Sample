@@ -23,7 +23,7 @@ objects:
   spec:
     size: ${SIZE}
     appName: ${APP_NAME}
-    routeName: ${ROUTE_NAME}
+    routePrefix: ${ROUTE_PREFIX}
     image: ${IMAGE}
     containerPort: ${PORT}
     profile: ${PROFILE}
@@ -41,9 +41,9 @@ parameters:
   name: SIZE
   value: "1"
   required: true
-- description: Name of the ReactSample instace
-  displayName: This name will be used by all objects created by CR (pods,services,deployments, etc..)
-  name: ROUTE_NAME
+- description: Suffix of the ReactSample route
+  displayName: routeProfix.yourdomain.com
+  name: ROUTE_PREFIX
   required: true
 - description: Route name
   displayName: Name of the OpenShift route object
