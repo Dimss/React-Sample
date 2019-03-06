@@ -6,7 +6,7 @@ def getJobName() {
         return jobNameList[jobNameList.size() - 1]
     } else {
         return jobName
-        
+
     }
 }
 
@@ -32,7 +32,11 @@ def getGitTag() {
 }
 
 def getApiUrl() {
-    return "http://coreapitest-dev-latest.router.default.svc.cluster.local/api/Person"
+    def profile = getProfile()
+    if(profile == "dev")
+      return "http://coreapitest-dev-latest.router.default.svc.cluster.local/api/Person"
+    if(profile == "lab")
+      return "http://coreapitest-lab-latest.router.default.svc.cluster.local/api/Person"
 }
 
 def getDockerImageTag() {
