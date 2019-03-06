@@ -80,25 +80,23 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                          echo "${getAppName()}"
-
-                            // def icBcTemplate = readFile('ocp/ci/app-is-bc.yaml')
-                            // def models = openshift.process(icBcTemplate,
-                            //         "-p=BC_IS_NAME=${getAppName()}",
-                            //         "-p=DOCKER_REGISTRY=${env.DOCKER_REGISTRY}",
-                            //         "-p=DOCKER_IMAGE_NAME=/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}",
-                            //         "-p=DOCKER_IMAGE_TAG=${getDockerImageTag()}",
-                            //         "-p=GIT_REPO=${scm.getUserRemoteConfigs()[0].getUrl()}",
-                            //         "-p=GIT_REF=${env.gitlabSourceBranch}",
-                            //         "-p=S2I_BUILDER_ISTAG=${env.S2I_BUILD_IMAGE}",
-                            //         "-p=API_URL=${getApiUrl()}"
-                            // )
-                            // echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
-                            // openshift.create(models)
-                            // def bc = openshift.selector("buildconfig/${getAppName()}")
-                            // def build = bc.startBuild()
-                            // build.logs("-f")
-                            // openshift.delete(models)
+                            def icBcTemplate = readFile('ocp/ci/app-is-bc.yaml')
+                            def models = openshift.process(icBcTemplate,
+                                    "-p=BC_IS_NAME=${getAppName()}",
+                                    "-p=DOCKER_REGISTRY=${env.DOCKER_REGISTRY}",
+                                    "-p=DOCKER_IMAGE_NAME=/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}",
+                                    "-p=DOCKER_IMAGE_TAG=${getDockerImageTag()}",
+                                    "-p=GIT_REPO=${scm.getUserRemoteConfigs()[0].getUrl()}",
+                                    "-p=GIT_REF=${env.gitlabSourceBranch}",
+                                    "-p=S2I_BUILDER_ISTAG=${env.S2I_BUILD_IMAGE}",
+                                    "-p=API_URL=${getApiUrl()}"
+                            )
+                            echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
+                            openshift.create(models)
+                            def bc = openshift.selector("buildconfig/${getAppName()}")
+                            def build = bc.startBuild()
+                            build.logs("-f")
+                            openshift.delete(models)
                         }
                     }
                 }
@@ -110,24 +108,24 @@ pipeline {
             script{
               openshift.withCluster() {
                 openshift.withProject() {
-                  // def size = 1
-                  // def appName = getAppName()
-                  // def namespace = openshift.project()
-                  // def port = 8080
-                  // def image = "${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}:${getDockerImageTag()}"
-                  // def profile = getProfile()
-                  // def routeName = "reactsample-dev"
-                  // def crTemplate = readFile('ocp/cd/cr-template.yaml')
-                  // def models = openshift.process(crTemplate,
-                  //       "-p=SIZE=${size}",
-                  //       "-p=APP_NAME=${appName}",
-                  //       "-p=NAMESPACE=${namespace}",
-                  //       "-p=IMAGE=${image}",
-                  //       "-p=PORT=${port}",
-                  //       "-p=ROUTE_NAME=${routeName}",
-                  //       "-p=PROFILE=${profile}")
-                  // echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
-                  // openshift.create(models)
+                  def size = 1
+                  def appName = getAppName()
+                  def namespace = openshift.project()
+                  def port = 8080
+                  def image = "${env.DOCKER_REGISTRY}/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}:${getDockerImageTag()}"
+                  def profile = getProfile()
+                  def routeName = "reactsample-dev"
+                  def crTemplate = readFile('ocp/cd/cr-template.yaml')
+                  def models = openshift.process(crTemplate,
+                        "-p=SIZE=${size}",
+                        "-p=APP_NAME=${appName}",
+                        "-p=NAMESPACE=${namespace}",
+                        "-p=IMAGE=${image}",
+                        "-p=PORT=${port}",
+                        "-p=ROUTE_NAME=${routeName}",
+                        "-p=PROFILE=${profile}")
+                  echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
+                  openshift.create(models)
                 }
               }
             }
