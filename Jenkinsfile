@@ -6,6 +6,7 @@ def getJobName() {
         return jobNameList[jobNameList.size() - 1]
     } else {
         return jobName
+        
     }
 }
 
