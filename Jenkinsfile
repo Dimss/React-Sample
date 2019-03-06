@@ -80,23 +80,25 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject() {
-                            def icBcTemplate = readFile('ocp/ci/app-is-bc.yaml')
-                            def models = openshift.process(icBcTemplate,
-                                    "-p=BC_IS_NAME=${getAppName()}",
-                                    "-p=DOCKER_REGISTRY=${env.DOCKER_REGISTRY}",
-                                    "-p=DOCKER_IMAGE_NAME=/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}",
-                                    "-p=DOCKER_IMAGE_TAG=${getDockerImageTag()}",
-                                    "-p=GIT_REPO=${scm.getUserRemoteConfigs()[0].getUrl()}",
-                                    "-p=GIT_REF=${env.gitlabSourceBranch}",
-                                    "-p=S2I_BUILDER_ISTAG=${env.S2I_BUILD_IMAGE}",
-                                    "-p=API_URL=${getApiUrl()}"
-                            )
-                            echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
-                            openshift.create(models)
-                            def bc = openshift.selector("buildconfig/${getAppName()}")
-                            def build = bc.startBuild()
-                            build.logs("-f")
-                            openshift.delete(models)
+                          echo "${getAppName()}"
+
+                            // def icBcTemplate = readFile('ocp/ci/app-is-bc.yaml')
+                            // def models = openshift.process(icBcTemplate,
+                            //         "-p=BC_IS_NAME=${getAppName()}",
+                            //         "-p=DOCKER_REGISTRY=${env.DOCKER_REGISTRY}",
+                            //         "-p=DOCKER_IMAGE_NAME=/${env.DOCKER_IMAGE_PREFIX}/${GOVIL_APP_NAME}",
+                            //         "-p=DOCKER_IMAGE_TAG=${getDockerImageTag()}",
+                            //         "-p=GIT_REPO=${scm.getUserRemoteConfigs()[0].getUrl()}",
+                            //         "-p=GIT_REF=${env.gitlabSourceBranch}",
+                            //         "-p=S2I_BUILDER_ISTAG=${env.S2I_BUILD_IMAGE}",
+                            //         "-p=API_URL=${getApiUrl()}"
+                            // )
+                            // echo "${JsonOutput.prettyPrint(JsonOutput.toJson(models))}"
+                            // openshift.create(models)
+                            // def bc = openshift.selector("buildconfig/${getAppName()}")
+                            // def build = bc.startBuild()
+                            // build.logs("-f")
+                            // openshift.delete(models)
                         }
                     }
                 }
@@ -108,7 +110,6 @@ pipeline {
             script{
               openshift.withCluster() {
                 openshift.withProject() {
-                  echo "${getAppName()}"
                   // def size = 1
                   // def appName = getAppName()
                   // def namespace = openshift.project()
