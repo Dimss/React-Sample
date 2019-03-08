@@ -103,6 +103,8 @@ pipeline {
                             def bc = openshift.selector("buildconfig/${getAppName()}")
                             def build = bc.startBuild()
                             build.logs("-f")
+                            bc = openshift.selector("buildconfig/${getAppName()}")
+                            echo "${JsonOutput.prettyPrint(JsonOutput.toJson(bc))}"
                             openshift.delete(models)
                         }
                     }
