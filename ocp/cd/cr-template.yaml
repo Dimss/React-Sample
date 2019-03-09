@@ -28,9 +28,6 @@ objects:
     containerPort: ${PORT}
     profile: ${PROFILE}
     namespace: ${NAMESPACE}
-    deploymentStrategy:
-      type: gb
-      weight: 50
 parameters:
 - description: Name of the ReactSample instace
   displayName: This name will be used by all objects created by CR (pods,services,deployments, etc..)
